@@ -515,6 +515,131 @@ This is on the list for me to try next week
 
 :::
 
+# DIY: The Raw Terminal
+
+- No coordinator app, just SSH and tmux
+- Works with **any** agent CLI
+- The baseline every tool here is competing with
+
+::: notes
+- Every tool in this talk is, underneath, a nicer version of this: a long-running process on a machine you control, a way to reach it from anywhere, and a way to keep several agents apart.
+- You can build that yourself from four boring, free, battle-tested pieces:
+  - **Tailscale** to reach the machine.
+  - **SSH or mosh** to connect.
+  - **tmux** to keep sessions alive.
+  - **git worktrees** to keep agents out of each other's way.
+- Why bother when the tools exist?
+  - Nothing new to trust: no relay server, no new app with access to your code.
+  - Works with every agent on day one, including ones no coordinator supports yet.
+  - Nothing to be acquired or shut down. Compare Conductor.
+  - It's what the Claude Code docs themselves suggest for remote boxes: run `claude` in tmux, then turn on Remote Control.
+- The cost is ergonomics, especially on a phone. That's the trade-off to land in this section.
+:::
+
+## SSH + VPN + tmux
+
+- 📱 **Phone:** any SSH app (Blink, Termius, Termux)
+- 🖥️ **Other machines:** anything on your tailnet
+- 🤖 **Many agents:** a tmux window and a worktree per agent
+
+::: notes
+**Setup, start to finish**
+
+1. **Tailscale** on the host and on your phone. It's a WireGuard mesh, so the host gets a stable name (MagicDNS, e.g. `devbox`) and nothing is exposed to the public internet. The personal plan is free.
+2. **SSH** into the host.
+   - On Linux, `tailscale up --ssh` lets Tailscale handle auth, so you don't manage keys.
+   - On a Mac, turn on Remote Login and use normal SSH keys.
+3. **tmux** so the agents outlive your connection:
+
+   ```bash
+   tmux new -A -s agents     # attach if it exists, create if not
+   ```
+
+   Run one agent per tmux window. `Ctrl-b d` detaches and the agent keeps working; `tmux attach -t agents` picks it back up from your laptop or phone.
+4. **git worktrees** so parallel agents don't edit the same checkout:
+
+   ```bash
+   git worktree add ../myrepo-auth -b feature/auth
+   cd ../myrepo-auth && claude
+   ```
+
+   Merge the branch when it's done; `git worktree remove` cleans up.
+
+**Phone clients**
+
+- **iOS:** Blink Shell (built-in mosh, good keyboard handling) or Termius.
+- **Android:** Termux (full Linux userland, `pkg install mosh openssh`) or Termius.
+- Add `set -g mouse on` to `~/.tmux.conf` so you can tap between panes and scroll with your finger.
+
+**Other machines**
+
+- Anything that can run tmux and join your tailnet: a desktop at home, a Mac mini, a VPS, a cloud dev box. Since it's all just SSH, hopping from one box to another is free.
+
+**Many agents**
+
+- As many as you have tmux windows and worktrees for. There's no dashboard: you cycle through windows (`Ctrl-b w` shows a list) to see who's waiting on you.
+- If you want a little more structure without leaving the terminal, Claude Squad was the TUI for exactly this (tmux + worktree per agent), but it hasn't had a release since Aug 2026.
+:::
+
+## Making It Livable
+
+- 🔔 **Notifications:** agent hooks + ntfy
+- 📶 **Flaky networks:** mosh instead of SSH
+- ☕ **Stay awake:** caffeinate, or an always-on box
+
+::: notes
+The raw setup works, but three things make it miserable on a phone. Each has a small fix.
+
+**1. You don't know when an agent needs you.** Push notifications with **ntfy** (free, open source, iOS/Android apps): subscribe to a topic on your phone, then have the agent `curl` it.
+
+Claude Code, in `~/.claude/settings.json` (the `Notification` hook fires when Claude needs input, `Stop` fires when it finishes):
+
+```json
+{
+  "hooks": {
+    "Notification": [{ "hooks": [{ "type": "command",
+      "command": "curl -s -d 'Claude needs you' ntfy.sh/<your-topic>" }] }],
+    "Stop": [{ "hooks": [{ "type": "command",
+      "command": "curl -s -d 'Claude finished' ntfy.sh/<your-topic>" }] }]
+  }
+}
+```
+
+Codex, in `~/.codex/config.toml` (runs when a turn completes):
+
+```toml
+notify = ["bash", "-lc", "curl -s -d 'Codex finished' ntfy.sh/<your-topic>"]
+```
+
+Public ntfy.sh topics are readable by anyone who guesses the name, so use a long random topic or self-host ntfy.
+
+**2. Phone connections drop constantly.** Switching Wi-Fi to cellular, or locking the phone, kills an SSH session. **mosh** runs over UDP and survives roaming and sleep, and it echoes your typing locally so it feels fast on bad connections.
+
+- Install `mosh` on the host. Over Tailscale the UDP ports (60000–61000) just work.
+- mosh has no scrollback of its own, but tmux handles that.
+- Even without mosh, tmux means a dropped connection costs you nothing: just reattach.
+
+**3. The host goes to sleep.**
+
+- macOS: `caffeinate -is` stops idle sleep while plugged in. A laptop with the lid closed still sleeps unless it's on power with an external display.
+- The real fix is an always-on box (Mac mini, home server, or a small VPS), so your laptop is just another client.
+
+**Cons of the whole DIY approach**
+
+- Typing and reading on a phone terminal is hard: no diff viewer, no tap-to-approve, and long agent output is painful to scroll.
+- You build and maintain it yourself: tmux config, hooks, worktree cleanup, security updates.
+- No overview: nothing tells you at a glance which of six agents is stuck.
+- That's exactly the gap the tools in this talk sell into. DIY is the floor: if a coordinator isn't clearly better than this for how you work, you don't need it.
+:::
+
+## Rob's Review
+
+::: notes
+
+I mean, it works...
+
+:::
+
 # The End
 
 ---
