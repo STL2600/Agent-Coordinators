@@ -4,7 +4,24 @@
 
 # Intro
 
+::: notes
+
+ - Wanted to work on multiple systems for isolation and parallelism
+ - Eventually wanted to be able to answer prompts on the go
+ - Wanted to be able to use multiple subscriptions without multiple apps
+ - I haven't gotten into multi-agent coordination yet, but I know that's a thing
+
+:::
+
+## Intro
+
+ - First Party Apps
+ - Third Party Coordinators
+ - DIY Setups
+
 # First-Party Agent Systems
+
+## First-Party
 
 - Built by the company that makes the agent
 - Usually only drive **their** agent
@@ -22,7 +39,11 @@
 - Everything in this section was checked against vendor docs or launch coverage in early November 2026. This space changes monthly; double-check before quoting version numbers.
 :::
 
-## Claude Code (Anthropic)
+# Claude Code
+
+The Daddy
+
+## Claude Code
 
 - 📱 **Phone:** Remote Control via the Claude app
 - 🖥️ **Other machines:** SSH, cloud, and self-hosted sessions
@@ -61,7 +82,7 @@
 **Cons:** Claude models only, and closed source. That's the main reason third-party coordinators exist on top of it.
 :::
 
-## Claude Code (Anthropic): Screenshot
+## Claude Code
 
 ![](static/screenshots/claude-code.webp){height=560px}
 
@@ -81,7 +102,11 @@
 
 :::
 
-## OpenAI Codex (ChatGPT desktop app)
+# Codex
+
+The Late Comer
+
+## Codex
 
 - 📱 **Phone:** ChatGPT app pairs with your computer
 - 🖥️ **Other machines:** SSH hosts, other desktops, cloud tasks
@@ -113,7 +138,7 @@
 **Cons:** OpenAI models only. Windows support for the app came later than Mac.
 :::
 
-## OpenAI Codex (ChatGPT desktop app): Screenshot
+## Codex
 
 ![](static/screenshots/codex.webp){height=560px}
 
@@ -129,6 +154,10 @@
  - I was not able to maintain remote connections at all either on the phone or another computer
 
 :::
+
+# GitHub Agent HQ
+
+The ... something
 
 ## GitHub Agent HQ
 
@@ -162,7 +191,7 @@
 **Cons:** async, PR-shaped workflow only. It's not interactive pair-programming, and it needs a paid Copilot tier.
 :::
 
-## GitHub Agent HQ: Screenshot
+## GitHub Agent HQ
 
 ![](static/screenshots/agenthq.png){height=560px}
 
@@ -181,7 +210,11 @@ Works with non-copilot agents _kinda_
 
 :::
 
-## Google Antigravity 2.0
+# Antigravity
+
+Google is also doing a thing
+
+## Antigravity
 
 - 📱 **Phone:** no official app
 - 🖥️ **Other machines:** not documented
@@ -208,7 +241,7 @@ Works with non-copilot agents _kinda_
 **Cons:** the weakest of the five on my three criteria. Strong on multi-agent, weak on mobile and remote.
 :::
 
-## Google Antigravity 2.0: Screenshot
+## Antigravity
 
 ![](static/screenshots/antigravity.png){height=560px}
 
@@ -225,7 +258,11 @@ Doesn't really have remote options like the others aside from SSH
 
 :::
 
-## Cursor 3 (Agents Window)
+# Cursor
+
+REDACTED due to politics
+
+## Cursor
 
 - � **Phone:** native iOS app (beta), web on Android
 - �️ **Other machines:** local, SSH, or cloud VMs
@@ -258,7 +295,7 @@ Doesn't really have remote options like the others aside from SSH
 **Cons:** closed-source VS Code fork, no self-hosting except Enterprise, and it's Cursor's own agent (though you choose the model). Unlike Claude Code and Codex, it's model-agnostic, which counts in its favor.
 :::
 
-## Cursor 3 (Agents Window): Screenshot
+## Cursor
 
 ![](static/screenshots/cursor3.png){height=560px}
 
@@ -277,6 +314,8 @@ Haven't actually used cursor
 
 # Third-Party Coordinators
 
+## Third-Party Coordinators
+
 - Sit **on top of** the vendors' agents
 - Mix Claude, Codex, Cursor and more in one place
 - Mostly open source, mostly free
@@ -294,6 +333,8 @@ Haven't actually used cursor
 - Dropped as inactive: Claude Squad (last release Aug 20), Ciao, Grass, PhoneCMD, and Augment Intent/Cosmos.
 - Same three questions as before: phone, other machines, many agents.
 :::
+
+# Conductor
 
 ## Conductor
 
@@ -330,7 +371,7 @@ Haven't actually used cursor
 **Cons:** macOS only and closed source, and now it's being sunset. Hard to recommend starting with it today.
 :::
 
-## Conductor: Screenshot
+## Conductor
 
 ![](static/screenshots/conductor.webp){height=560px}
 
@@ -346,6 +387,8 @@ Haven't actually used cursor
 Actually worked pretty well, aside from the fact that Meta bought it to kill it.
 
 :::
+
+# Emdash
 
 ## Emdash
 
@@ -381,7 +424,7 @@ Actually worked pretty well, aside from the fact that Meta bought it to kill it.
 **Cons:** no phone story at all, so it only answers two of my three questions.
 :::
 
-## Emdash: Screenshot
+## Emdash
 
 ![](static/screenshots/emdash.png){height=560px}
 
@@ -397,6 +440,8 @@ Actually worked pretty well, aside from the fact that Meta bought it to kill it.
 Works really well for multi-machine setups, though no phone app.
 
 :::
+
+# T3 Code
 
 ## T3 Code
 
@@ -431,7 +476,7 @@ Works really well for multi-machine setups, though no phone app.
 **Cons:** the maintainers say "very very early, expect bugs", and they're mostly not accepting contributions. The host has to stay on, there's no cloud execution, and the background service doesn't run on Windows.
 :::
 
-## T3 Code: Screenshot
+# T3 Code
 
 ![](static/screenshots/t3code.webp){height=560px}
 
@@ -448,6 +493,8 @@ Works really well for multi-machine setups, though no phone app.
  - Includes cloud service for connecting
 
 :::
+
+# HAPI
 
 ## HAPI
 
@@ -487,7 +534,7 @@ Works really well for multi-machine setups, though no phone app.
 **Cons:** you run and secure the hub yourself, the native apps cost money, and the host machines have to stay on.
 :::
 
-## HAPI: Screenshot
+## HAPI
 
 ![](static/screenshots/hapi.webp){height=560px}
 
@@ -504,6 +551,8 @@ I had trouble keeping this one working.
 The connection seemed to drop a lot, but I'm not sure if I was doing something wrong.
 
 :::
+
+# Omnigent
 
 ## Omnigent
 
@@ -540,7 +589,7 @@ The connection seemed to drop a lot, but I'm not sure if I was doing something w
 **Cons:** alpha, so expect churn. More moving parts than the others (a server, hosts, policies). It's most worth it for teams or if you want cross-vendor review.
 :::
 
-## Omnigent: Screenshot
+# Omnigent
 
 ![](static/screenshots/omnigent.png){height=560px}
 
@@ -556,6 +605,8 @@ The connection seemed to drop a lot, but I'm not sure if I was doing something w
 I'm actually trying this one out right now, so TBD.
 
 :::
+
+# Orca
 
 ## Orca
 
@@ -597,7 +648,7 @@ I'm actually trying this one out right now, so TBD.
 **Cons:** the UI is dense and there's a lot to learn. The mobile app, cloud VMs and orchestration are all beta or experimental. Shipping this fast means things change week to week.
 :::
 
-## Orca: Screenshot
+## Orca
 
 ![](static/screenshots/orca.jpg){height=560px}
 
@@ -614,7 +665,9 @@ This is on the list for me to try next week
 
 :::
 
-# DIY: The Raw Terminal
+# DIY
+
+## DIY
 
 - No coordinator app, just SSH and tmux
 - Works with **any** agent CLI
@@ -635,7 +688,7 @@ This is on the list for me to try next week
 - The cost is ergonomics, especially on a phone. That's the trade-off to land in this section.
 :::
 
-## SSH + VPN + tmux
+## DIY
 
 - 📱 **Phone:** any SSH app (Blink, Termius, Termux)
 - 🖥️ **Other machines:** anything on your tailnet
@@ -680,7 +733,7 @@ This is on the list for me to try next week
 - If you want a little more structure without leaving the terminal, Claude Squad was the TUI for exactly this (tmux + worktree per agent), but it hasn't had a release since Aug 2026.
 :::
 
-## SSH + VPN + tmux: Screenshot
+## DIY
 
 ![](static/screenshots/tmux.png){height=560px}
 
@@ -689,7 +742,7 @@ This is on the list for me to try next week
 - Source: https://commons.wikimedia.org/wiki/File:Tmux.png
 :::
 
-## Making It Livable
+## DIY
 
 - 🔔 **Notifications:** agent hooks + ntfy
 - 📶 **Flaky networks:** mosh instead of SSH
@@ -745,6 +798,25 @@ Public ntfy.sh topics are readable by anyone who guesses the name, so use a long
 ::: notes
 
 I mean, it works...
+
+:::
+
+# My Advice
+
+## My Advice
+
+ - Use first party where possible
+
+## My Advice
+
+ - The DIY option works, but isn't great
+
+## My Advice
+
+ - T3 / Orca seem to be the best right now
+
+::: notes
+
 
 :::
 
