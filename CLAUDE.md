@@ -14,12 +14,13 @@ Ratings used everywhere: **Yes / Partial / No / Unclear** (on slides: ✅ ◐ �
 
 ## Repo and build
 
-- `talk.md` is the whole deck. GitHub Actions (`.github/workflows/publish.yml`) runs pandoc 3.9 to build reveal.js 5.2.1 (theme `night`, `--slide-level 2`) and publishes to GitHub Pages on every push.
+- `talk.md` is the whole deck. GitHub Actions (`.github/workflows/publish.yml`) runs pandoc 3.9 to build reveal.js 5.2.1 (`--slide-level 2`) and publishes to GitHub Pages on every push.
+- Theme: the custom Blade Runner-inspired "Neon Noir" stylesheet `static/theme/blade-runner.css`, layered on reveal's `black` theme with `--css`. Section (`#`) slides get the neon-sign treatment; slides whose id starts with `robs-review` get the iris graphic. Screenshot slides assume `![](…){height=560px}` on its own line.
 - `# Heading` makes a section title slide; `## Heading` makes a content slide.
 - Speaker notes go in a `::: notes` … `:::` fenced div under each slide.
 - `${TALK_URL}` and `${REPO_URL}` are filled in by `envsubst` in CI. Leave them alone.
 - `static/qrcode.png` is generated in CI.
-- Local check: `pandoc --slide-level 2 --standalone -t revealjs -V theme=night -s talk.md -o /tmp/t.html`
+- Local check: `pandoc --slide-level 2 --standalone -t revealjs -V theme=black -V transition=fade --css static/theme/blade-runner.css -s talk.md -o preview.html`. Write the output to the repo root so `static/` resolves. Local pandoc is 3.13, whose template expects reveal 6 file paths, so don't pass `revealjs-url` pointing at 5.2.1 locally or the plugins 404 and the page renders blank.
 
 ### Style Rob asked for
 

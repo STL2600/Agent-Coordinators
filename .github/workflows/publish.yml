@@ -51,7 +51,9 @@ jobs:
             --slide-level 2
             --standalone
             -t revealjs
-            -V theme=night
+            -V theme=black
+            -V transition=fade
+            --css static/theme/blade-runner.css
             -V revealjs-url=reveal.js
             -s dist/talk.md
             -o dist/index.html

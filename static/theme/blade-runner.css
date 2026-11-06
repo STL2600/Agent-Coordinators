@@ -1,0 +1,428 @@
+/*
+ * Neon Noir: a reveal.js theme for Vibe-o-Phone, inspired by Blade Runner.
+ * Rain-streaked night city, sodium-orange smog glow, neon signage, amber terminals.
+ *
+ * Layered on top of reveal's `black` theme:
+ *   pandoc ... -V theme=black --css static/theme/blade-runner.css
+ */
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;800&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Noto+Sans+JP:wght@900&display=swap");
+
+:root {
+  /* palette */
+  --br-night: #04060c;
+  --br-deep: #0a1526;
+  --br-smog: #ff6a1a;      /* sodium streetlight / 2049 orange haze */
+  --br-amber: #ffa630;     /* terminal amber */
+  --br-cyan: #3ef0ff;      /* neon tube cyan */
+  --br-magenta: #ff2e88;   /* neon sign pink */
+  --br-text: #d5e1ee;
+  --br-dim: #7d91a8;
+  --br-panel: rgba(8, 18, 34, 0.78);
+
+  /* reveal theme variables */
+  --r-background-color: var(--br-night);
+  --r-main-font: "Rajdhani", "Helvetica Neue", sans-serif;
+  --r-main-font-size: 40px;
+  --r-main-color: var(--br-text);
+  --r-heading-font: "Oxanium", "Rajdhani", sans-serif;
+  --r-heading-color: var(--br-cyan);
+  --r-heading-font-weight: 800;
+  --r-heading-text-transform: uppercase;
+  --r-heading-letter-spacing: 0.08em;
+  --r-heading-text-shadow: none;
+  --r-heading1-size: 2.6em;
+  --r-heading2-size: 1.5em;
+  --r-code-font: "Share Tech Mono", ui-monospace, monospace;
+  --r-link-color: var(--br-cyan);
+  --r-link-color-dark: #1fb8c7;
+  --r-link-color-hover: #9ff8ff;
+  --r-selection-background-color: var(--br-magenta);
+  --r-selection-color: #fff;
+}
+
+/* ---------- The city: smog glow, rain and scanlines ---------- */
+
+.reveal-viewport {
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 115%, rgba(255, 106, 26, 0.38), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 8% -5%, rgba(255, 46, 136, 0.16), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 95% 5%, rgba(62, 240, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--br-night) 0%, var(--br-deep) 70%, #1a1410 100%);
+}
+
+/* rain: two layers of streaks drifting at slightly different speeds */
+.reveal-viewport::before {
+  content: "";
+  position: fixed;
+  inset: -20% -20%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.22;
+  background:
+    repeating-linear-gradient(100deg, transparent 0 46px, rgba(170, 210, 255, 0.55) 46px 47px, transparent 47px 131px),
+    repeating-linear-gradient(97deg, transparent 0 83px, rgba(170, 210, 255, 0.35) 83px 84px, transparent 84px 197px);
+  background-size: 260px 520px, 380px 760px;
+  animation: br-rain 0.9s linear infinite;
+}
+
+/* CRT scanlines + vignette over everything */
+.reveal-viewport::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.reveal {
+  z-index: 1;
+}
+
+@keyframes br-rain {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: -90px 520px, -110px 760px; }
+}
+
+/* ---------- Typography ---------- */
+
+.reveal {
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  text-shadow:
+    0 0 6px rgba(62, 240, 255, 0.55),
+    0 0 22px rgba(62, 240, 255, 0.35);
+}
+
+.reveal h2 {
+  position: relative;
+  padding-bottom: 0.35em;
+  margin-bottom: 0.7em;
+}
+
+/* glowing underline that fades from magenta to cyan */
+.reveal h2::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--br-magenta) 25%, var(--br-cyan) 75%, transparent);
+  box-shadow: 0 0 10px var(--br-magenta), 0 0 18px rgba(62, 240, 255, 0.6);
+}
+
+.reveal strong,
+.reveal b {
+  color: var(--br-amber);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 166, 48, 0.35);
+}
+
+.reveal em,
+.reveal i {
+  color: var(--br-cyan);
+}
+
+.reveal a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba(62, 240, 255, 0.5);
+  transition: color 0.15s, text-shadow 0.15s;
+}
+
+.reveal a:hover {
+  text-shadow: 0 0 10px var(--br-cyan);
+}
+
+/* bullets: magenta neon chevrons, laid out on a dark glass panel */
+.reveal .slides section.level2 > ul,
+.reveal .slides section.level2 > ol {
+  display: inline-block;
+  padding: 0.7em 1.2em 0.7em 1.6em;
+  background: var(--br-panel);
+  border: 1px solid rgba(62, 240, 255, 0.22);
+  border-left: 3px solid var(--br-magenta);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.55), inset 0 0 40px rgba(62, 240, 255, 0.04);
+  backdrop-filter: blur(2px);
+}
+
+.reveal ul {
+  list-style: none;
+}
+
+.reveal ul > li {
+  position: relative;
+  margin: 0.35em 0;
+}
+
+.reveal ul > li::before {
+  content: "▸";
+  position: absolute;
+  left: -1em;
+  color: var(--br-magenta);
+  text-shadow: 0 0 8px var(--br-magenta);
+}
+
+.reveal ol > li::marker {
+  color: var(--br-magenta);
+  font-family: var(--r-code-font);
+}
+
+/* code: amber terminal */
+.reveal code {
+  color: var(--br-amber);
+  font-family: var(--r-code-font);
+}
+
+.reveal pre {
+  background: rgba(4, 6, 12, 0.9);
+  border: 1px solid rgba(255, 166, 48, 0.4);
+  box-shadow: 0 0 24px rgba(255, 166, 48, 0.12);
+}
+
+.reveal pre code {
+  color: var(--br-amber);
+  background: transparent;
+  text-shadow: 0 0 6px rgba(255, 166, 48, 0.4);
+}
+
+/* tables */
+.reveal table th {
+  color: var(--br-amber);
+  font-family: var(--r-heading-font);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--br-magenta);
+}
+
+.reveal table td {
+  border-bottom: 1px solid rgba(62, 240, 255, 0.15);
+}
+
+/* ---------- Screenshots: framed like a monitor ---------- */
+
+.reveal .slides section img {
+  border: 1px solid rgba(62, 240, 255, 0.55);
+  border-radius: 4px;
+  background: #000;
+  box-shadow:
+    0 0 0 6px rgba(4, 6, 12, 0.85),
+    0 0 0 7px rgba(255, 46, 136, 0.45),
+    0 0 40px rgba(62, 240, 255, 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* scanlines over the screenshot itself */
+.reveal .slides section p:has(> img:only-child) {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.reveal .slides section p:has(> img:only-child)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 4px;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0 1px, transparent 1px 3px);
+}
+
+/* screenshot slides: tighter heading so the 560px image fits */
+.reveal .slides section:has(> p > img:only-child) > h2 {
+  font-size: 1.15em;
+  margin-bottom: 0.35em;
+  padding-bottom: 0.2em;
+}
+
+/* ---------- Title slide ---------- */
+
+.reveal #title-slide .title {
+  font-size: 2.3em;
+  white-space: nowrap;
+  color: #eafcff;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 14px var(--br-cyan),
+    0 0 36px var(--br-cyan),
+    4px 0 34px rgba(255, 46, 136, 0.7);
+  animation: br-flicker 7s infinite;
+}
+
+.reveal #title-slide .title::before {
+  content: "NOVEMBER, 2026";
+  display: block;
+  margin-bottom: 0.6em;
+  font-family: var(--r-code-font);
+  font-size: 0.16em;
+  font-weight: 400;
+  letter-spacing: 0.5em;
+  color: var(--br-amber);
+  text-shadow: 0 0 8px rgba(255, 166, 48, 0.6);
+}
+
+.reveal #title-slide .author {
+  font-family: var(--r-code-font);
+  color: var(--br-amber);
+  letter-spacing: 0.1em;
+}
+
+.reveal #title-slide .date {
+  font-size: 0.7em;
+  color: var(--br-dim);
+}
+
+/* keep the QR code high-contrast so it still scans */
+.reveal #title-slide img,
+.reveal #the-end img {
+  background: #fff;
+  padding: 8px;
+  border: none;
+  box-shadow: 0 0 0 2px var(--br-cyan), 0 0 30px rgba(62, 240, 255, 0.5);
+}
+
+/* ---------- Section title slides: neon sign in the rain ---------- */
+
+.reveal .slides section.level1 > h1 {
+  color: #f2fdff;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 12px var(--br-cyan),
+    0 0 30px var(--br-cyan),
+    0 0 60px rgba(62, 240, 255, 0.5);
+  animation: br-flicker 9s infinite;
+}
+
+.reveal .slides section.level1 > h1::before {
+  content: "// ENTERING SECTOR";  /* reveal hides off-screen slides, so CSS counters can't number these */
+  display: block;
+  margin-bottom: 0.8em;
+  font-family: var(--r-code-font);
+  font-size: 0.18em;
+  font-weight: 400;
+  letter-spacing: 0.6em;
+  color: var(--br-amber);
+  text-shadow: 0 0 8px rgba(255, 166, 48, 0.7);
+  animation: none;
+}
+
+/* horizon glow under the section title */
+.reveal .slides section.level1 > h1::after {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 2px;
+  margin: 0.45em auto 0;
+  background: linear-gradient(90deg, transparent, var(--br-smog), transparent);
+  box-shadow: 0 0 22px var(--br-smog), 0 0 60px rgba(255, 106, 26, 0.6);
+}
+
+/* vertical katakana neon sign ("agent") hanging off the right edge */
+.reveal .slides section.level1::after {
+  content: "エージェント";
+  position: absolute;
+  top: 50%;
+  right: -120px;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 900;
+  font-size: 34px;
+  letter-spacing: 0.12em;
+  padding: 16px 8px;
+  color: #ffd1e6;
+  border: 2px solid var(--br-magenta);
+  border-radius: 6px;
+  text-shadow: 0 0 6px var(--br-magenta), 0 0 18px var(--br-magenta);
+  box-shadow: 0 0 14px var(--br-magenta), inset 0 0 14px rgba(255, 46, 136, 0.45);
+  opacity: 0.85;
+  animation: br-buzz 5.5s infinite;
+}
+
+.reveal .slides section#the-end > h1::before {
+  content: "// TRANSMISSION ENDS";
+}
+
+@keyframes br-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.55; }
+}
+
+@keyframes br-buzz {
+  0%, 40%, 44%, 100% { opacity: 0.85; }
+  42% { opacity: 0.3; }
+  43% { opacity: 0.7; }
+}
+
+/* ---------- "Rob's Review" slides: the empathy test ---------- */
+
+.reveal .slides section[id^="robs-review"] > h2 {
+  color: var(--br-amber);
+  text-shadow: 0 0 8px rgba(255, 166, 48, 0.7), 0 0 26px rgba(255, 106, 26, 0.5);
+  margin-top: 0.4em;
+}
+
+.reveal .slides section[id^="robs-review"] > h2::after {
+  background: linear-gradient(90deg, transparent, var(--br-amber), transparent);
+  box-shadow: 0 0 12px var(--br-amber);
+}
+
+/* a glowing iris above the heading */
+.reveal .slides section[id^="robs-review"] > h2::before {
+  content: "";
+  display: block;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 0.6em;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 36%, rgba(255, 255, 255, 0.9) 0 3%, transparent 4%),
+    radial-gradient(circle, #020203 0 17%, transparent 18%),
+    radial-gradient(circle, transparent 0 17%, rgba(255, 140, 30, 0.55) 22%, transparent 40%),
+    radial-gradient(circle, transparent 46%, rgba(4, 6, 12, 0.96) 70%),
+    repeating-conic-gradient(rgba(255, 166, 48, 0.95) 0deg 2deg, rgba(110, 55, 12, 0.95) 2deg 5deg, rgba(62, 240, 255, 0.55) 5deg 6deg);
+  box-shadow: 0 0 40px rgba(255, 166, 48, 0.35), 0 0 0 2px rgba(255, 166, 48, 0.25);
+}
+
+/* ---------- reveal chrome ---------- */
+
+.reveal .progress {
+  height: 4px;
+  color: var(--br-magenta);
+  box-shadow: 0 0 10px var(--br-magenta);
+}
+
+.reveal .controls {
+  color: var(--br-cyan);
+}
+
+.reveal .slide-number {
+  font-family: var(--r-code-font);
+  background: transparent;
+  color: var(--br-amber);
+}
+
+/* ---------- Accessibility & print ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-viewport::before,
+  .reveal #title-slide .title,
+  .reveal .slides section.level1 > h1,
+  .reveal .slides section.level1::after {
+    animation: none;
+  }
+}
+
+html.print-pdf .reveal-viewport::before,
+html.print-pdf .reveal-viewport::after {
+  display: none;
+}
