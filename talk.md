@@ -63,6 +63,13 @@
 **Cons:** Claude models only, and closed source. That's the main reason third-party coordinators exist on top of it.
 :::
 
+## Rob's Review
+
+- 👍 **Liked:** _TODO_
+- 👎 **Didn't like:** _TODO_
+- 🤔 **Surprised me:** _TODO_
+- ⭐ **Verdict:** _TODO_
+
 ## OpenAI Codex (ChatGPT desktop app)
 
 - 📱 **Phone:** ChatGPT app pairs with your computer
@@ -94,6 +101,13 @@
 
 **Cons:** OpenAI models only. Windows support for the app came later than Mac.
 :::
+
+## Rob's Review
+
+- 👍 **Liked:** _TODO_
+- 👎 **Didn't like:** _TODO_
+- 🤔 **Surprised me:** _TODO_
+- ⭐ **Verdict:** _TODO_
 
 ## Cursor 3 (Agents Window)
 
@@ -128,6 +142,13 @@
 **Cons:** closed-source VS Code fork, no self-hosting except Enterprise, and it's Cursor's own agent (though you choose the model). Unlike Claude Code and Codex, it's model-agnostic, which counts in its favor.
 :::
 
+## Rob's Review
+
+- 👍 **Liked:** _TODO_
+- 👎 **Didn't like:** _TODO_
+- 🤔 **Surprised me:** _TODO_
+- ⭐ **Verdict:** _TODO_
+
 ## GitHub Agent HQ
 
 - 📱 **Phone:** Mission Control in GitHub Mobile
@@ -160,6 +181,13 @@
 **Cons:** async, PR-shaped workflow only. It's not interactive pair-programming, and it needs a paid Copilot tier.
 :::
 
+## Rob's Review
+
+- 👍 **Liked:** _TODO_
+- 👎 **Didn't like:** _TODO_
+- 🤔 **Surprised me:** _TODO_
+- ⭐ **Verdict:** _TODO_
+
 ## Google Antigravity 2.0
 
 - 📱 **Phone:** no official app
@@ -186,6 +214,13 @@
 
 **Cons:** the weakest of the five on my three criteria. Strong on multi-agent, weak on mobile and remote.
 :::
+
+## Rob's Review
+
+- 👍 **Liked:** _TODO_
+- 👎 **Didn't like:** _TODO_
+- 🤔 **Surprised me:** _TODO_
+- ⭐ **Verdict:** _TODO_
 
 ## Scorecard
 
