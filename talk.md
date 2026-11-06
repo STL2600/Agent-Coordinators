@@ -264,8 +264,8 @@ REDACTED due to politics
 
 ## Cursor
 
-- � **Phone:** native iOS app (beta), web on Android
-- �️ **Other machines:** local, SSH, or cloud VMs
+- 📱 **Phone:** native iOS app (beta), web on Android
+- 🖥️ **Other machines:** local, SSH, or cloud VMs
 - 🤖 **Many agents:** parallel agents, each in a worktree or VM
 
 ::: notes
