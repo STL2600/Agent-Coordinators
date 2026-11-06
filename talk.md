@@ -6,8 +6,6 @@
 
 # First-Party Agent Systems
 
-## The vendors' own cockpits
-
 - Built by the company that makes the agent
 - Usually only drive **their** agent
 - The baseline every third-party tool is measured against
@@ -65,10 +63,14 @@
 
 ## Rob's Review
 
-- 👍 **Liked:** _TODO_
-- 👎 **Didn't like:** _TODO_
-- 🤔 **Surprised me:** _TODO_
-- ⭐ **Verdict:** _TODO_
+::: notes
+
+ - Works well for claude obviously
+ - Great for reviewing plans
+ - Notifications and multi-session support work well
+ - Annoying to have to run remote control on each session
+
+:::
 
 ## OpenAI Codex (ChatGPT desktop app)
 
@@ -104,10 +106,88 @@
 
 ## Rob's Review
 
-- 👍 **Liked:** _TODO_
-- 👎 **Didn't like:** _TODO_
-- 🤔 **Surprised me:** _TODO_
-- ⭐ **Verdict:** _TODO_
+::: notes
+
+ - I was not able to maintain remote connections at all either on the phone or another computer
+
+:::
+
+## GitHub Agent HQ
+
+- 📱 **Phone:** Mission Control in GitHub Mobile
+- 🖥️ **Other machines:** GitHub's cloud, not your boxes
+- 🤖 **Many agents:** Copilot, Claude *and* Codex on one issue
+
+::: notes
+**What it is:** GitHub's control plane for coding agents. Announced at GitHub Universe (Oct 2025); Claude and OpenAI Codex arrived as public-preview agents on **Feb 4, 2026** for Copilot **Pro+ and Enterprise**. GitHub said other tiers would follow, so check current availability.
+
+**Why it's interesting for this talk:** it's the only first-party option that is **multi-vendor**. GitHub isn't selling a model, it's selling the place where agents do work.
+
+**Phone**
+
+- **Mission Control** is the dashboard for starting, watching and reviewing agent sessions. It's on github.com, in VS Code, in the Copilot CLI, and in **GitHub Mobile**.
+- From the phone you can assign an issue to an agent, watch progress, and review the draft PR it opens. It's the most "manager-like" phone experience of the five: you're delegating and reviewing, not babysitting a terminal.
+
+**Other machines**
+
+- Agents run in GitHub-hosted, Actions-powered environments, not on your laptop or dev box. Great for "keep working while my laptop is closed," but you can't point it at your own machine.
+- VS Code (Feb 2026 multi-agent update) can run Claude and Codex locally *or* as cloud agents, and the Claude integration uses Anthropic's official agent harness.
+- I rated this "Partial" in the spreadsheet: remote, but only GitHub's remote.
+
+**Many agents**
+
+- Assign one issue to Copilot, Claude, Codex, or all three, and compare the PRs side by side. That's a neat demo idea.
+- Mention `@Claude` or `@Codex` in PR review comments to send them back for changes.
+- Repo admins have to enable Claude and Codex per repository.
+- Enterprise governance: audit logs, policies on which agents and models are allowed, agents restricted to designated branches, and a Copilot metrics dashboard for agent activity.
+
+**Cons:** async, PR-shaped workflow only. It's not interactive pair-programming, and it needs a paid Copilot tier.
+:::
+
+## Rob's Review
+
+::: notes
+
+Actually works pretty well if you're living in GitHub already
+Cloud workspaces are the best implementation from any major provider
+Works with non-copilot agents _kinda_
+
+:::
+
+## Google Antigravity 2.0
+
+- 📱 **Phone:** no official app
+- 🖥️ **Other machines:** not documented
+- 🤖 **Many agents:** Manager Surface for parallel agents
+
+::: notes
+**History:** Antigravity launched in late 2025 as Google's agent-first IDE. **Antigravity 2.0** was announced at Google I/O in May 2026 as a standalone desktop app for orchestrating several agents in parallel, with scheduled background tasks and subagent workflows.
+
+**Many agents (its strength)**
+
+- The **Manager Surface** lets you spawn, orchestrate and monitor several agents running in parallel and asynchronously. Google was arguably first to make "agent manager" the main view rather than the editor.
+- Also new in 2.0: a Go-based Antigravity CLI, a public SDK, Managed Agents in the Gemini API, built-in integrations with AI Studio, Firebase and Android, and voice control with a wake word ("Hey Antigravity").
+
+**Phone**
+
+- No official mobile app for Antigravity itself. The nearest Google option is the **AI Studio** mobile app, which is for prototyping, not steering agents. A third-party "Mobile IDE for Antigravity" exists but isn't from Google.
+- Workaround: several third-party coordinators now support Antigravity as a provider (T3 Code, Emdash, PhoneCMD, Synara), so you can drive it from a phone through them.
+
+**Other machines**
+
+- I found nothing on SSH or remote-machine support in what I reviewed. Managed Agents in the Gemini API point toward cloud execution, but that's an API, not a coordinator feature.
+- **Jules**, Google's earlier async GitHub agent (cloud-run, PR-based), still exists, but its changelog reportedly hasn't moved since March 2026. Mention it only in passing.
+
+**Cons:** the weakest of the five on my three criteria. Strong on multi-agent, weak on mobile and remote.
+:::
+
+## Rob's Review
+
+::: notes
+
+Doesn't really have remote options like the others aside from SSH
+
+:::
 
 ## Cursor 3 (Agents Window)
 
@@ -144,105 +224,10 @@
 
 ## Rob's Review
 
-- 👍 **Liked:** _TODO_
-- 👎 **Didn't like:** _TODO_
-- 🤔 **Surprised me:** _TODO_
-- ⭐ **Verdict:** _TODO_
-
-## GitHub Agent HQ
-
-- 📱 **Phone:** Mission Control in GitHub Mobile
-- 🖥️ **Other machines:** GitHub's cloud, not your boxes
-- 🤖 **Many agents:** Copilot, Claude *and* Codex on one issue
-
 ::: notes
-**What it is:** GitHub's control plane for coding agents. Announced at GitHub Universe (Oct 2025); Claude and OpenAI Codex arrived as public-preview agents on **Feb 4, 2026** for Copilot **Pro+ and Enterprise**. GitHub said other tiers would follow, so check current availability.
 
-**Why it's interesting for this talk:** it's the only first-party option that is **multi-vendor**. GitHub isn't selling a model, it's selling the place where agents do work.
+Haven't actually used cursor
 
-**Phone**
-
-- **Mission Control** is the dashboard for starting, watching and reviewing agent sessions. It's on github.com, in VS Code, in the Copilot CLI, and in **GitHub Mobile**.
-- From the phone you can assign an issue to an agent, watch progress, and review the draft PR it opens. It's the most "manager-like" phone experience of the five: you're delegating and reviewing, not babysitting a terminal.
-
-**Other machines**
-
-- Agents run in GitHub-hosted, Actions-powered environments, not on your laptop or dev box. Great for "keep working while my laptop is closed," but you can't point it at your own machine.
-- VS Code (Feb 2026 multi-agent update) can run Claude and Codex locally *or* as cloud agents, and the Claude integration uses Anthropic's official agent harness.
-- I rated this "Partial" in the spreadsheet: remote, but only GitHub's remote.
-
-**Many agents**
-
-- Assign one issue to Copilot, Claude, Codex, or all three, and compare the PRs side by side. That's a neat demo idea.
-- Mention `@Claude` or `@Codex` in PR review comments to send them back for changes.
-- Repo admins have to enable Claude and Codex per repository.
-- Enterprise governance: audit logs, policies on which agents and models are allowed, agents restricted to designated branches, and a Copilot metrics dashboard for agent activity.
-
-**Cons:** async, PR-shaped workflow only. It's not interactive pair-programming, and it needs a paid Copilot tier.
-:::
-
-## Rob's Review
-
-- 👍 **Liked:** _TODO_
-- 👎 **Didn't like:** _TODO_
-- 🤔 **Surprised me:** _TODO_
-- ⭐ **Verdict:** _TODO_
-
-## Google Antigravity 2.0
-
-- 📱 **Phone:** no official app
-- 🖥️ **Other machines:** not documented
-- 🤖 **Many agents:** Manager Surface for parallel agents
-
-::: notes
-**History:** Antigravity launched in late 2025 as Google's agent-first IDE. **Antigravity 2.0** was announced at Google I/O in May 2026 as a standalone desktop app for orchestrating several agents in parallel, with scheduled background tasks and subagent workflows.
-
-**Many agents (its strength)**
-
-- The **Manager Surface** lets you spawn, orchestrate and monitor several agents running in parallel and asynchronously. Google was arguably first to make "agent manager" the main view rather than the editor.
-- Also new in 2.0: a Go-based Antigravity CLI, a public SDK, Managed Agents in the Gemini API, built-in integrations with AI Studio, Firebase and Android, and voice control with a wake word ("Hey Antigravity").
-
-**Phone**
-
-- No official mobile app for Antigravity itself. The nearest Google option is the **AI Studio** mobile app, which is for prototyping, not steering agents. A third-party "Mobile IDE for Antigravity" exists but isn't from Google.
-- Workaround: several third-party coordinators now support Antigravity as a provider (T3 Code, Emdash, PhoneCMD, Synara), so you can drive it from a phone through them.
-
-**Other machines**
-
-- I found nothing on SSH or remote-machine support in what I reviewed. Managed Agents in the Gemini API point toward cloud execution, but that's an API, not a coordinator feature.
-- **Jules**, Google's earlier async GitHub agent (cloud-run, PR-based), still exists, but its changelog reportedly hasn't moved since March 2026. Mention it only in passing.
-
-**Cons:** the weakest of the five on my three criteria. Strong on multi-agent, weak on mobile and remote.
-:::
-
-## Rob's Review
-
-- 👍 **Liked:** _TODO_
-- 👎 **Didn't like:** _TODO_
-- 🤔 **Surprised me:** _TODO_
-- ⭐ **Verdict:** _TODO_
-
-## Scorecard
-
-| | 📱 Phone | 🖥️ Other machines | 🤖 Many agents |
-|---|:-:|:-:|:-:|
-| Claude Code | ✅ | ✅ | ✅ |
-| Codex | ✅ | ✅ | ✅ |
-| Cursor 3 | ✅ | ✅ | ✅ |
-| GitHub Agent HQ | ✅ | ◐ | ✅ |
-| Antigravity | ❌ | ❓ | ✅ |
-
-::: notes
-- ✅ yes · ◐ partial · ❌ no · ❓ undocumented
-- The big story: in under a year the three main agent vendors all shipped phone control, remote execution and parallel agents. Claude Code Remote Control (Feb), the Codex app (Feb) then its merge into ChatGPT (Jul), and Cursor 3 (Apr) plus its iOS app (Jun).
-- Two different meanings of "remote" hide in this table:
-  - **Your machine, steered remotely** (Claude Remote Control, Codex host pairing, SSH sessions). You keep your local tools, MCP servers and credentials, but the machine has to stay awake.
-  - **Vendor cloud** (Claude cloud sessions, Codex cloud tasks, Cursor cloud agents, GitHub Agent HQ). It survives a closed laptop, but your local environment isn't there.
-- What first-party tools *don't* give you:
-  - Mixing vendors. Each one drives only its own agent (GitHub is the exception).
-  - Open source or self-hosting (except enterprise tiers).
-  - One view across Claude + Codex + Cursor at once.
-- That gap is exactly what the third-party coordinators fill, which leads into the next section.
 :::
 
 # The End
