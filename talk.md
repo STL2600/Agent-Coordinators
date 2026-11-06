@@ -61,6 +61,15 @@
 **Cons:** Claude models only, and closed source. That's the main reason third-party coordinators exist on top of it.
 :::
 
+## Claude Code (Anthropic): Screenshot
+
+![](static/screenshots/claude-code.webp){height=560px}
+
+::: notes
+- Claude Code on the web: picking a repo and branch for a new session.
+- Source: https://claude.com/product/claude-code
+:::
+
 ## Rob's Review
 
 ::: notes
@@ -104,6 +113,15 @@
 **Cons:** OpenAI models only. Windows support for the app came later than Mac.
 :::
 
+## OpenAI Codex (ChatGPT desktop app): Screenshot
+
+![](static/screenshots/codex.webp){height=560px}
+
+::: notes
+- Codex in the ChatGPT desktop app: new thread composer.
+- Source: https://developers.openai.com/codex/app
+:::
+
 ## Rob's Review
 
 ::: notes
@@ -144,6 +162,15 @@
 **Cons:** async, PR-shaped workflow only. It's not interactive pair-programming, and it needs a paid Copilot tier.
 :::
 
+## GitHub Agent HQ: Screenshot
+
+![](static/screenshots/agenthq.png){height=560px}
+
+::: notes
+- GitHub's Agents tab: starting and tracking agent sessions across a repo.
+- Source: https://github.blog/news-insights/company-news/welcome-home-agents/
+:::
+
 ## Rob's Review
 
 ::: notes
@@ -179,6 +206,15 @@ Works with non-copilot agents _kinda_
 - **Jules**, Google's earlier async GitHub agent (cloud-run, PR-based), still exists, but its changelog reportedly hasn't moved since March 2026. Mention it only in passing.
 
 **Cons:** the weakest of the five on my three criteria. Strong on multi-agent, weak on mobile and remote.
+:::
+
+## Google Antigravity 2.0: Screenshot
+
+![](static/screenshots/antigravity.png){height=560px}
+
+::: notes
+- Antigravity 2.0: new chat, choosing Local or a New Worktree.
+- Source: https://antigravity.google
 :::
 
 ## Rob's Review
@@ -220,6 +256,15 @@ Doesn't really have remote options like the others aside from SSH
 **Pricing:** free Hobby tier caps agent requests. Cloud agents start at Pro ($20/mo), with Pro+ ($60) and Ultra ($200).
 
 **Cons:** closed-source VS Code fork, no self-hosting except Enterprise, and it's Cursor's own agent (though you choose the model). Unlike Claude Code and Codex, it's model-agnostic, which counts in its favor.
+:::
+
+## Cursor 3 (Agents Window): Screenshot
+
+![](static/screenshots/cursor3.png){height=560px}
+
+::: notes
+- Cursor 3 Agents Window: agent list on the left, one agent's run on the right.
+- Source: https://cursor.com/blog/cursor-3
 :::
 
 ## Rob's Review
@@ -285,6 +330,15 @@ Haven't actually used cursor
 **Cons:** macOS only and closed source, and now it's being sunset. Hard to recommend starting with it today.
 :::
 
+## Conductor: Screenshot
+
+![](static/screenshots/conductor.webp){height=560px}
+
+::: notes
+- Conductor: workspaces on the left, agent chat in the middle, diff and checks on the right.
+- Source: https://www.conductor.build
+:::
+
 ## Rob's Review
 
 ::: notes
@@ -327,6 +381,15 @@ Actually worked pretty well, aside from the fact that Meta bought it to kill it.
 **Cons:** no phone story at all, so it only answers two of my three questions.
 :::
 
+## Emdash: Screenshot
+
+![](static/screenshots/emdash.png){height=560px}
+
+::: notes
+- Emdash: worktree tasks in the sidebar, plus 'Add remote project' over SSH.
+- Source: https://emdash.sh/blog/public-v1-beta
+:::
+
 ## Rob's Review
 
 ::: notes
@@ -366,6 +429,15 @@ Works really well for multi-machine setups, though no phone app.
 - Outside agents (Claude Code, Codex, ChatGPT) can connect to it over MCP.
 
 **Cons:** the maintainers say "very very early, expect bugs", and they're mostly not accepting contributions. The host has to stay on, there's no cloud execution, and the background service doesn't run on Windows.
+:::
+
+## T3 Code: Screenshot
+
+![](static/screenshots/t3code.webp){height=560px}
+
+::: notes
+- T3 Code: one thread fanning out to four subagents (Claude, Codex, Gemini...).
+- Source: https://t3.codes
 :::
 
 ## Rob's Review
@@ -415,6 +487,15 @@ Works really well for multi-machine setups, though no phone app.
 **Cons:** you run and secure the hub yourself, the native apps cost money, and the host machines have to stay on.
 :::
 
+## HAPI: Screenshot
+
+![](static/screenshots/hapi.webp){height=560px}
+
+::: notes
+- HAPI on a phone: a Codex session's tool calls and summary.
+- Source: https://github.com/tiann/hapi/tree/main/website/public/images
+:::
+
 ## Rob's Review
 
 ::: notes
@@ -457,6 +538,15 @@ The connection seemed to drop a lot, but I'm not sure if I was doing something w
 - **Team features:** multi-user accounts with invite links or OIDC, share a live session, co-drive someone's running session, or fork it.
 
 **Cons:** alpha, so expect churn. More moving parts than the others (a server, hosts, policies). It's most worth it for teams or if you want cross-vendor review.
+:::
+
+## Omnigent: Screenshot
+
+![](static/screenshots/omnigent.png){height=560px}
+
+::: notes
+- Omnigent desktop: sessions by project, harness picker (Claude SDK) in the composer.
+- Source: https://github.com/omnigent-ai/omnigent
 :::
 
 ## Rob's Review
@@ -505,6 +595,15 @@ I'm actually trying this one out right now, so TBD.
 - Extras: line-by-line review notes on diffs sent back to the agent, failing CI checks sent back for fixes, Design Mode (click an element in the built-in browser to give its HTML and CSS to the agent), and an iOS/Android emulator the agent can test with.
 
 **Cons:** the UI is dense and there's a lot to learn. The mobile app, cloud VMs and orchestration are all beta or experimental. Shipping this fast means things change week to week.
+:::
+
+## Orca: Screenshot
+
+![](static/screenshots/orca.jpg){height=560px}
+
+::: notes
+- Orca: coordinator plus worker agents across a local Mac and a remote mac-mini, mirrored on the phone.
+- Source: https://github.com/stablyai/orca
 :::
 
 ## Rob's Review
@@ -579,6 +678,15 @@ This is on the list for me to try next week
 
 - As many as you have tmux windows and worktrees for. There's no dashboard: you cycle through windows (`Ctrl-b w` shows a list) to see who's waiting on you.
 - If you want a little more structure without leaving the terminal, Claude Squad was the TUI for exactly this (tmux + worktree per agent), but it hasn't had a release since Aug 2026.
+:::
+
+## SSH + VPN + tmux: Screenshot
+
+![](static/screenshots/tmux.png){height=560px}
+
+::: notes
+- tmux: split panes and windows in one session (not agents, but the same idea).
+- Source: https://commons.wikimedia.org/wiki/File:Tmux.png
 :::
 
 ## Making It Livable
