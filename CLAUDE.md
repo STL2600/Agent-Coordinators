@@ -36,7 +36,7 @@ On-screen content stays **high level**: about three short bullets per slide, usi
   - GitHub Agent HQ
   - Google Antigravity 2.0
   - Scorecard table
-- Third-party coordinators: **not started** (likely next).
+- `# Third-Party Coordinators`: **drafted** (Nov 6). An intro slide, then Conductor, Emdash, Xum, T3 Code, HAPI and Omnigent, each followed by a notes-only "Rob's Review" slide with `_TODO_` for Rob to fill in. Rob's own review notes on the first-party slides are his. Don't rewrite them.
 - `# The End`: template closing slide.
 
 Possible additions:
@@ -49,6 +49,7 @@ Possible additions:
 
 - `research/coding_agent_coordinators.xlsx` is the main spreadsheet. It has three tabs: Comparison (38 tools), Summary (COUNTIF formulas), and Legend & Sources.
 - `research/coding_agent_coordinators.csv` is the Comparison tab as CSV, for easy reading.
+- `research/coding_agent_coordinators_active.xlsx` (+ `.csv`) holds only the third-party tools with development activity Oct 6 – Nov 6, 2026 (27 active, 5 excluded). Tabs: Active (the original columns plus last activity date and evidence), Excluded, Summary, Method. Conductor is still shipping but winding down: it announced it's joining Meta on Nov 4, Cloud shuts down Nov 20, and local gets fixes until early 2027. Mux is now **Xum** (coder/xum).
 - Each row has: category, license, agents supported, the three ratings with detail text, whether work continues while the laptop sleeps, platforms, pricing, status notes, and source URLs.
 - Edit the xlsx directly if you need to. It was generated with openpyxl, and the Summary tab's formulas reference `Comparison!E5:I42`, so extend those ranges if you add rows.
 

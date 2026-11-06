@@ -230,6 +230,243 @@ Haven't actually used cursor
 
 :::
 
+# Third-Party Coordinators
+
+- Sit **on top of** the vendors' agents
+- Mix Claude, Codex, Cursor and more in one place
+- Mostly open source, mostly free
+
+::: notes
+- "Third-party" here means the coordinator comes from someone other than the agent vendor. It drives the CLIs you already have installed and logged in (Claude Code, Codex, Cursor CLI, OpenCode…), so it runs on your existing subscriptions.
+- Why they exist: until early 2026 none of the vendors offered phone control, remote machines *and* parallel agents. These tools filled that gap. The vendors have mostly caught up, so the pitch now is **vendor-neutral**: one UI across every agent, and often self-hostable.
+- How I picked these six: my research sheet has 32 third-party tools. I kept only the ones with real development activity between Oct 6 and Nov 6, 2026 (27 made the cut), then picked six that show different approaches:
+  - **Conductor**: polished, closed-source Mac app, and a warning about what happens when a startup gets acquired.
+  - **Emdash**: desktop app with the most agents supported, plus SSH.
+  - **Xum (Coder)**: its own agent loop, with SSH, Docker and dev container runtimes.
+  - **T3 Code**: the full package, with phone, remote machines and parallel agents.
+  - **HAPI**: self-hosted phone remote that wraps the official CLIs.
+  - **Omnigent**: a "meta-harness" that mixes agents in one session and adds policies.
+- Dropped as inactive: Claude Squad (last release Aug 20), Ciao, Grass, PhoneCMD, and Augment Intent/Cosmos.
+- Same three questions as before: phone, other machines, many agents.
+:::
+
+## Conductor
+
+- ⚠️ **Joining Meta:** winding down as of Nov 4
+- 📱 **Phone:** iOS app, remote control of your Mac
+- 🤖 **Many agents:** one git worktree per agent
+
+::: notes
+**What it is:** a closed-source macOS app from Melty Labs for running Claude Code, Codex, Cursor and OpenCode agents in parallel. It was one of the tools that started the category, and T3 Code's README names it as an inspiration.
+
+**Big news (changelog 0.93.0, Nov 4, 2026): Conductor is joining Meta and the product is being wound down.**
+
+- **Conductor Cloud** goes read-only **Nov 13** and shuts down **Nov 20**. Right-click a cloud workspace and choose "Transfer to local" to keep it.
+- The **local app** gets new models and critical bug fixes **until early 2027**, then it's effectively done.
+- Export everything from Settings → Account → Export data.
+- Use it as the cautionary tale of the talk: closed source plus a startup means your workflow can disappear in two weeks. Compare that with Vibe Kanban, which kept going as a community project after Bloop shut down because it was open source.
+
+**Phone**
+
+- **Conductor for iOS** (0.90.0, Oct 2, 2026): chat with agents and merge PRs from your phone. At launch it was aimed at **cloud** workspaces.
+- **Remote control** (0.92.0, Oct 23, 2026, experimental): turn it on in Settings → Experimental, then scan a QR code with the iOS app. From the phone you can browse and create workspaces, read chats, send messages, pick models and stop agents, but only for the Mac's **local** workspaces.
+- It stays connected while the window is minimized, and keeps the Mac awake while the phone is connected and the Mac is plugged in.
+- No Android app.
+
+**Other machines**
+
+- **Conductor Cloud** (0.78.0, Jul 30, 2026) ran workspaces in hosted sandboxes and was reported to need the $50/mo Pro plan. It's the part being shut down first.
+- I found no SSH support for your own machines.
+
+**Many agents**
+
+- Each agent gets its own git worktree. One view shows progress, diffs and PRs, with merge stacks and automerge.
+
+**Cons:** macOS only and closed source, and now it's being sunset. Hard to recommend starting with it today.
+:::
+
+## Rob's Review
+
+::: notes
+
+Actually worked pretty well, aside from the fact that Meta bought it to kill it.
+
+:::
+
+## Emdash
+
+- 📱 **Phone:** none
+- 🖥️ **Other machines:** SSH/SFTP remote projects
+- 🤖 **Many agents:** worktree per task, 30+ agent CLIs
+
+::: notes
+**What it is:** an open-source (Apache-2.0) desktop app from General Action (YC W26) for running coding agents in parallel. Electron, so it runs on macOS, Windows and Linux (x64 and ARM64). Started Aug 2025, about 6.2k GitHub stars, v1.2.11 shipped Nov 6, 2026 with 290 commits in the past month.
+
+**Phone**
+
+- No mobile client and no web UI. It's the "desk" option in this lineup.
+- Emdash 2.0 is announced as a cloud-first product for teams, but there's only an early-access waitlist and no details.
+
+**Other machines**
+
+- **Remote projects** over SSH/SFTP: connect to your own boxes and run the same parallel workflow on remote codebases.
+- Supports SSH agent, key and password auth, including OpenSSH certificates. Credentials go in your OS keychain.
+- tmux sessions keep long-running agents alive across reconnects, locally or remotely.
+
+**Many agents**
+
+- Every task gets its own git worktree and branch, and a task can create several worktrees, each with its own agent.
+- The broadest agent support I found: the docs list **34 CLI providers**, including Claude Code, Codex, Cursor, OpenCode, Amp, Devin, Qwen Code, Droid and GitHub Copilot. It detects installed CLIs automatically.
+- It installs lifecycle hooks into agent configs to track status, notifications and resumable sessions.
+- Pulls tickets from Linear, GitHub, Jira, GitLab, Asana, Notion, Monday.com and others straight into an agent. Review diffs, open PRs, check CI and merge from the app.
+
+**Privacy:** local-first. State lives in a local SQLite database and no code or chats go to Emdash servers. Telemetry is optional (`TELEMETRY_ENABLED=false`).
+
+**Pricing:** free.
+
+**Cons:** no phone story at all, so it only answers two of my three questions.
+:::
+
+## Rob's Review
+
+::: notes
+
+Works really well for multi-machine setups, though no phone app.
+
+:::
+
+## T3 Code
+
+- 📱 **Phone:** native iOS & Android apps plus web
+- 🖥️ **Other machines:** T3 Connect relay, LAN/Tailscale, SSH
+- 🤖 **Many agents:** threads across agents *and* machines
+
+::: notes
+**What it is:** an open-source (MIT) "agent harness control surface" from Ping Labs (Theo Browne). Repo created Feb 8, 2026 and already about **49k GitHub stars**, the second-biggest tool in this space after Orca. Very active: 4,800+ commits in the past month, nightly builds.
+
+**Their pitch:** "What are you selling me? Nothing." It runs on the subscriptions you already have for Claude Code, Codex, Cursor, Grok Build, OpenCode, Google Antigravity and fx. Install and log in to at least one provider CLI first. It's one of the few ways to drive Antigravity from a phone.
+
+**Setup:** `curl -fsSL https://t3.codes/install.sh | sh`, then `t3`. `t3 service install` keeps it running in the background on macOS and Linux. Desktop builds come through Homebrew, winget, scoop, AUR and Nix.
+
+**Phone**
+
+- Native **iOS and Android apps** plus a hosted web app at app.t3.codes.
+- Pair by scanning a QR code or link (`t3 pair`), or sign in to T3 Connect and pick the machine.
+
+**Other machines** (all three routes can be set on one machine; it uses the fastest one that answers)
+
+- **T3 Connect:** a relay, so no port forwarding. `t3 up` on the host. Free accounts can link **3 machines**. A paid T3 Chat plan raises that to 10 (Pro) or 100 (Premier).
+- **LAN / Tailscale:** `t3 up --lan` and a one-time pairing code. Once paired through T3 Connect, it learns the LAN and Tailscale addresses on its own and switches to them when you're home.
+- **SSH:** the desktop app can install and start a T3 server on a remote Linux or Apple Silicon box.
+- **Load balancing:** optionally spreads new threads across several connected machines.
+
+**Many agents**
+
+- Many threads across providers, branches/worktrees and machines in one UI.
+- Outside agents (Claude Code, Codex, ChatGPT) can connect to it over MCP.
+
+**Cons:** the maintainers say "very very early, expect bugs", and they're mostly not accepting contributions. The host has to stay on, there's no cloud execution, and the background service doesn't run on Windows.
+:::
+
+## Rob's Review
+
+::: notes
+
+ - Probably the most "full featured" system
+ - Includes cloud service for connecting
+
+:::
+
+## HAPI
+
+- 📱 **Phone:** web/PWA, native apps, even Telegram
+- 🖥️ **Other machines:** self-hosted hub, runners on any box
+- 🤖 **Many agents:** many sessions, agents can spawn peers
+
+::: notes
+**What it is:** a self-hosted remote control for the **official** agent CLIs: Claude Code, Codex, Cursor Agent, Grok Build, OpenCode, Kimi, Copilot, Antigravity, Pi and DeepSeek. Open source (AGPL-3.0), by tiann. Started Dec 2025, about 5.4k stars, v0.34.3 on Nov 5, 2026.
+
+**The name:** "哈皮" (*hā pí*) is a Chinese transliteration of **Happy**, the best-known mobile client. HAPI is pitched as the local-first alternative:
+
+- Happy runs a central cloud server that stores your end-to-end encrypted data.
+- HAPI has each user run **their own hub**, a single binary with SQLite.
+
+**Setup:** `npx @twsxtd/hapi hub --relay` starts the hub with an end-to-end encrypted relay (WireGuard + TLS). Then run `hapi` (or `hapi claude`, `hapi codex`) to start a session. The hub prints a URL and QR codes.
+
+**Phone**
+
+- **Web/PWA (free):** the most complete client. It has a remote terminal, file browser and git diffs, approvals, a voice assistant and push notifications.
+- **Native iOS/Android apps (paid):** chat, approvals, new sessions, files, dictation and native push. No terminal or realtime voice yet.
+- Also works as a **Telegram Mini App**.
+- "Seamless handoff": start in your terminal, take it to your phone, come back, with no session restart. Codex sessions can be used from terminal and phone at the same time (needs Codex 0.154.0+).
+
+**Other machines**
+
+- Architecture: CLI/Runner machines ↔ hub ↔ clients. The hub can run on your desktop or a VPS.
+- Run `hapi runner start` on any machine and you can **start new sessions on it from your phone**.
+- Reach it through the public relay, Cloudflare Tunnel, Tailscale, or your own HTTPS reverse proxy.
+
+**Many agents**
+
+- Many sessions across machines and agent types in one list.
+- Agents get MCP **peer tools** (`list_peers`, `inspect_peer`, `ping_peer`, `spawn_peer`) to find, message and start other sessions, which is a lightweight multi-agent setup.
+- There's no worktree management or task board, so I'd call it partial on isolation.
+
+**Cons:** you run and secure the hub yourself, the native apps cost money, and the host machines have to stay on.
+:::
+
+## Rob's Review
+
+::: notes
+
+I had trouble keeping this one working.
+The connection seemed to drop a lot, but I'm not sure if I was doing something wrong.
+
+:::
+
+## Omnigent
+
+- 📱 **Phone:** mobile web UI plus iOS/Android apps
+- 🖥️ **Other machines:** your hosts or cloud sandboxes
+- 🤖 **Many agents:** mix vendors in one session, with policies
+
+::: notes
+**What it is:** an open-source (Apache-2.0) **"meta-harness"**, an orchestration layer over Claude Code, Codex, Cursor, OpenCode, Goose, Antigravity, Copilot, Devin, Kiro, Qwen Code, Kimi Code, Grok Build, Pi and custom agents defined in YAML. Self-described **alpha**. Started Jun 2026, about 11k stars, v0.21.0 on Nov 5, 2026. Installs from PyPI, and there's a macOS desktop app.
+
+**Credentials:** API keys, Claude Pro/Max or ChatGPT **subscriptions** (through the official CLIs), any OpenAI- or Anthropic-compatible gateway (OpenRouter, LiteLLM, Ollama, vLLM), or Databricks.
+
+**Phone**
+
+- Deploy the server somewhere reachable and the web UI is built for phones: chat, subagents, terminals and files, all synced with your laptop.
+- The website also links native iOS and Android apps.
+- On your home network you can just open `http://<lan-ip>:6767` on your phone.
+
+**Other machines**
+
+- Server options: `docker compose up` on a VPS or home server, one-click Render or Railway, or Fly.io, Modal, Cloudflare and others. Reach a laptop-hosted server with a Cloudflare quick tunnel or Tailscale.
+- `omnigent host https://your-host` registers a machine as a place sessions can run.
+- **Cloud sandboxes** per session (Modal, Daytona, E2B, Kubernetes and about ten more), so no laptop has to stay online.
+
+**Many agents (its strength)**
+
+- Mix harnesses **in one session**: have one agent review another's work, or split a task by strengths.
+- Example agents ship with it:
+  - **Polly** is a tech-lead orchestrator. She hands work to Claude Code, Codex or Pi in parallel worktrees, then sends each diff to a reviewer **from a different vendor** than the one that wrote it.
+  - **Debby** asks Claude and GPT the same question and shows the answers side by side, and `/debate` makes them critique each other.
+- **Policies:** pause for approval before shell commands, cap tool calls, set hard spend limits. They stack at server, agent and session level.
+- **Team features:** multi-user accounts with invite links or OIDC, share a live session, co-drive someone's running session, or fork it.
+
+**Cons:** alpha, so expect churn. More moving parts than the others (a server, hosts, policies). It's most worth it for teams or if you want cross-vendor review.
+:::
+
+## Rob's Review
+
+::: notes
+
+- _TODO_
+
+:::
+
 # The End
 
 ---
