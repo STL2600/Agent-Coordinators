@@ -463,7 +463,55 @@ The connection seemed to drop a lot, but I'm not sure if I was doing something w
 
 ::: notes
 
-- _TODO_
+I'm actually trying this one out right now, so TBD.
+
+:::
+
+## Orca
+
+- 📱 **Phone:** iOS app plus Android APK (beta)
+- 🖥️ **Other machines:** SSH hosts, Orca servers, cloud VMs
+- 🤖 **Many agents:** worktree per agent, plus an orchestrator
+
+::: notes
+**What it is:** a free, open-source (MIT) desktop app from Stably AI (YC) for running Claude Code, Codex and other coding agents in parallel, each in its own worktree. Runs on macOS, Windows and Linux. Repo created Mar 17, 2026 and now about **117k GitHub stars**, by far the biggest third-party coordinator. It's also the busiest: about 6,800 commits in the past month and releases almost daily (v1.4.251 on Nov 6, 2026).
+
+**Agents:** the site claims 27 supported agents, including Claude Code, Codex, OpenCode, Grok, Gemini, Cursor, Copilot and Amp, plus "any other CLI agent". Run each one as the raw terminal CLI or in Orca's chat UI, and switch between the two without losing context. It uses your own agent subscriptions, and you can switch between several Claude or Codex accounts.
+
+**Phone (Orca Mobile, beta)**
+
+- iOS from the App Store; Android as an **APK download**, not Google Play.
+- Pair once: desktop gives a one-time code, enter it on the phone. **Orca Relay** (needs sign-in) is the default route; a LAN address is an optional faster route; Tailscale works too.
+- From the phone:
+  - Chat with agents, or use the raw terminal with a live keystroke mode.
+  - Answer prompts and approve permissions.
+  - Stage, commit and read diffs, leave PR comments, resolve merge conflicts.
+  - Push notifications when an agent finishes.
+  - Create new workspaces (from GitHub, Linear, GitLab or a branch) and choose which host builds them.
+- Limits: it's deliberately a remote control, not an editor. With LAN pairing, closing the desktop app drops the connection. The docs don't say whether the relay is end-to-end encrypted.
+
+**Other machines** (four ways to run)
+
+- **Local:** everything on your laptop, which stops when the laptop sleeps.
+- **SSH hosts:** add a host in Settings → SSH (it needs git). Orca installs its own server there on first connect. Agents keep running on the host and your laptop reattaches when it reconnects.
+- **Remote Orca Server:** pair two machines over Tailscale, or run `orca serve` on headless Linux. The server owns the worktrees, terminals and agents, so work continues while your laptop sleeps and the phone can reconnect.
+- **Cloud VM per worktree** (experimental): an `orca.yaml` recipe boots an environment for each worktree on Vercel Sandbox, Fly, Modal, local Docker or an SSH host. You bring and pay for the cloud account; Orca doesn't sell hosting.
+
+**Many agents**
+
+- Parallel worktrees, split panes (agents, terminals, browser and diffs side by side), and GitHub and Linear tasks built in.
+- **Orchestration** (experimental): give a big task to one coordinator agent. It splits the work into tasks, starts worker agents (Claude, Codex, Cursor, OpenCode, Antigravity…) in child worktrees, even on other hosts, and collects their results through an inbox.
+- The **Orca CLI** lets agents do anything you can: create worktrees, start workers, drive the browser, schedule automations.
+- Extras: line-by-line review notes on diffs sent back to the agent, failing CI checks sent back for fixes, Design Mode (click an element in the built-in browser to give its HTML and CSS to the agent), and an iOS/Android emulator the agent can test with.
+
+**Cons:** the UI is dense and there's a lot to learn. The mobile app, cloud VMs and orchestration are all beta or experimental. Shipping this fast means things change week to week.
+:::
+
+## Rob's Review
+
+::: notes
+
+This is on the list for me to try next week
 
 :::
 
